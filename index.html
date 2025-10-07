@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stealthy - Get Healthcare, Not Played</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#FF6B9D"/>
+                                <stop offset="100%" style="stop-color:#FEC5E5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">stealthy</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#procedures">Procedures</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#savings">Savings</a>
+                    <button class="btn-primary" onclick="openWaitlist()">Join Waitlist</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">Join the transparency revolution</div>
+            <h1 class="hero-title">Get Healthcare, Not Played</h1>
+            <p class="hero-subtitle">Real procedure costs from real patients at real hospitals. Know what you'll pay before you step foot in the door.</p>
+
+            <div class="search-box">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="#999" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input type="text" placeholder="Search by Procedure, Hospital, or Insurance...">
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card fade-in">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-number">$847K+</div>
+                    <div class="stat-label">Total Saved</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.1s">
+                    <div class="stat-icon">🏥</div>
+                    <div class="stat-number">2,400+</div>
+                    <div class="stat-label">Procedures Shared</div>
+                </div>
+                <div class="stat-card fade-in" style="animation-delay: 0.2s">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number">15K+</div>
+                    <div class="stat-label">Community Members</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Real Savings Section -->
+    <section class="savings-section" id="savings">
+        <div class="container">
+            <h2 class="section-title">Real People, Real Savings</h2>
+            <p class="section-subtitle">See how much members saved by knowing the real cost</p>
+
+            <div class="savings-grid">
+                <div class="saving-card slide-up">
+                    <div class="saving-header">
+                        <span class="saving-badge">Saved $12,400</span>
+                        <span class="saving-date">3 days ago</span>
+                    </div>
+                    <h3 class="saving-procedure">MRI Scan (Brain)</h3>
+                    <div class="saving-comparison">
+                        <div class="cost-item expensive">
+                            <span class="cost-label">Hospital A</span>
+                            <span class="cost-amount">$15,200</span>
+                        </div>
+                        <div class="cost-arrow">→</div>
+                        <div class="cost-item cheap">
+                            <span class="cost-label">Imaging Center B</span>
+                            <span class="cost-amount">$2,800</span>
+                        </div>
+                    </div>
+                    <div class="saving-insurance">Blue Cross Blue Shield PPO</div>
+                    <div class="saving-location">📍 San Francisco, CA</div>
+                </div>
+
+                <div class="saving-card slide-up" style="animation-delay: 0.1s">
+                    <div class="saving-header">
+                        <span class="saving-badge">Saved $8,950</span>
+                        <span class="saving-date">5 days ago</span>
+                    </div>
+                    <h3 class="saving-procedure">Knee Arthroscopy</h3>
+                    <div class="saving-comparison">
+                        <div class="cost-item expensive">
+                            <span class="cost-label">Memorial Hospital</span>
+                            <span class="cost-amount">$22,500</span>
+                        </div>
+                        <div class="cost-arrow">→</div>
+                        <div class="cost-item cheap">
+                            <span class="cost-label">Surgery Center Plus</span>
+                            <span class="cost-amount">$13,550</span>
+                        </div>
+                    </div>
+                    <div class="saving-insurance">Aetna HMO</div>
+                    <div class="saving-location">📍 Austin, TX</div>
+                </div>
+
+                <div class="saving-card slide-up" style="animation-delay: 0.2s">
+                    <div class="saving-header">
+                        <span class="saving-badge">Saved $5,200</span>
+                        <span class="saving-date">1 week ago</span>
+                    </div>
+                    <h3 class="saving-procedure">Colonoscopy</h3>
+                    <div class="saving-comparison">
+                        <div class="cost-item expensive">
+                            <span class="cost-label">University Hospital</span>
+                            <span class="cost-amount">$7,800</span>
+                        </div>
+                        <div class="cost-arrow">→</div>
+                        <div class="cost-item cheap">
+                            <span class="cost-label">Gastro Clinic</span>
+                            <span class="cost-amount">$2,600</span>
+                        </div>
+                    </div>
+                    <div class="saving-insurance">UnitedHealthcare PPO</div>
+                    <div class="saving-location">📍 New York, NY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Procedures -->
+    <section class="procedures-section" id="procedures">
+        <div class="container">
+            <h2 class="section-title">Popular Procedures</h2>
+
+            <div class="tabs">
+                <button class="tab active" data-category="imaging">Imaging</button>
+                <button class="tab" data-category="surgery">Surgery</button>
+                <button class="tab" data-category="labs">Labs & Tests</button>
+                <button class="tab" data-category="maternity">Maternity</button>
+            </div>
+
+            <div class="procedure-cards">
+                <div class="procedure-card">
+                    <div class="procedure-header">
+                        <h3>MRI Scan</h3>
+                        <span class="procedure-count">847 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$1,200 - $8,500</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Blue Cross</div>
+                </div>
+
+                <div class="procedure-card">
+                    <div class="procedure-header">
+                        <h3>CT Scan</h3>
+                        <span class="procedure-count">623 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$800 - $4,200</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: UnitedHealthcare</div>
+                </div>
+
+                <div class="procedure-card">
+                    <div class="procedure-header">
+                        <h3>X-Ray</h3>
+                        <span class="procedure-count">1,203 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$100 - $1,800</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Aetna</div>
+                </div>
+
+                <div class="procedure-card">
+                    <div class="procedure-header">
+                        <h3>Ultrasound</h3>
+                        <span class="procedure-count">892 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$300 - $2,500</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Cigna</div>
+                </div>
+            </div>
+
+            <button class="btn-secondary">View All Procedures</button>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Search Your Procedure</h3>
+                    <p>Find the medical procedure you need and see real costs from real patients</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Compare Prices</h3>
+                    <p>See what different hospitals and insurance plans actually charge</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Make Smart Choices</h3>
+                    <p>Choose the best option and save thousands on your healthcare</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Share Your Experience</h3>
+                    <p>Help others by sharing your costs and building transparency</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="cta-title">Ready to Stop Overpaying?</h2>
+                <p class="cta-subtitle">Join thousands who are taking control of their healthcare costs</p>
+                <button class="btn-primary-large" onclick="openWaitlist()">Join the Waitlist</button>
+                <p class="cta-note">✨ Early access members get lifetime premium features free</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Waitlist Modal -->
+    <div class="modal" id="waitlistModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWaitlist()">&times;</button>
+            <h2 class="modal-title">Join the Healthcare Transparency Revolution</h2>
+            <p class="modal-subtitle">Be the first to know when we launch</p>
+            <form class="waitlist-form" onsubmit="submitWaitlist(event)">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn-primary-large">Join Waitlist</button>
+            </form>
+            <p class="modal-note">We'll never spam you. Unsubscribe anytime.</p>
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h3>You're on the list!</h3>
+                <p>We'll notify you when we launch.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-small">
+                        <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#gradient2)"/>
+                            <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" style="stop-color:#FF6B9D"/>
+                                    <stop offset="100%" style="stop-color:#FEC5E5"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>stealthy</span>
+                    </div>
+                    <p>Healthcare transparency for everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#">Procedures</a>
+                        <a href="#">Hospitals</a>
+                        <a href="#">Insurance</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stealthy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
