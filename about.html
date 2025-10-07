@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us - Stealthy</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Serif+4:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation Bar -->
@@ -17,17 +18,17 @@
                         <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
                         <defs>
                             <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
-                                <stop offset="0%" style="stop-color:#FF6B9D"/>
-                                <stop offset="100%" style="stop-color:#FEC5E5"/>
+                                <stop offset="0%" style="stop-color:#2D6A4F"/>
+                                <stop offset="100%" style="stop-color:#74C69D"/>
                             </linearGradient>
                         </defs>
                     </svg>
                     <span class="logo-text">stealthy</span>
                 </a>
                 <div class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="index.html#how-it-works">How It Works</a>
                     <a href="index.html#procedures">Procedures</a>
+                    <a href="index.html#savings">Savings</a>
+                    <a href="index.html#how-it-works">How it works</a>
                     <a href="about.html" class="active">About</a>
                     <button class="btn-primary" onclick="openWaitlist()">Join Waitlist</button>
                 </div>
@@ -134,16 +135,16 @@
                 </p>
                 <div class="mission-stats">
                     <div class="stat-item">
-                        <div class="stat-number">10K+</div>
-                        <div class="stat-label">Procedures Analyzed</div>
+                        <div class="stat-number">42,083+</div>
+                        <div class="stat-label">Procedures Shared</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">500+</div>
-                        <div class="stat-label">Hospitals Covered</div>
+                        <div class="stat-number">58.5K+</div>
+                        <div class="stat-label">Community Members</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number">$2M+</div>
-                        <div class="stat-label">Saved for Patients</div>
+                        <div class="stat-number">$13.6M+</div>
+                        <div class="stat-label">Total Saved</div>
                     </div>
                 </div>
             </div>
@@ -167,50 +168,69 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-column">
-                    <h4>Stealthy</h4>
-                    <p>Making healthcare costs transparent and accessible.</p>
+                <div class="footer-brand">
+                    <div class="logo-small">
+                        <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#gradient2)"/>
+                            <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" style="stop-color:#2D6A4F"/>
+                                    <stop offset="100%" style="stop-color:#74C69D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>stealthy</span>
+                    </div>
+                    <p>Healthcare transparency for everyone.</p>
                 </div>
-                <div class="footer-column">
-                    <h4>Product</h4>
-                    <a href="index.html#procedures">Browse Procedures</a>
-                    <a href="index.html#how-it-works">How It Works</a>
-                    <a href="#">Pricing</a>
-                </div>
-                <div class="footer-column">
-                    <h4>Company</h4>
-                    <a href="about.html">About Us</a>
-                    <a href="#">Blog</a>
-                    <a href="#">Careers</a>
-                </div>
-                <div class="footer-column">
-                    <h4>Support</h4>
-                    <a href="#">Help Center</a>
-                    <a href="#">Contact Us</a>
-                    <a href="#">Privacy Policy</a>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="index.html#procedures">Procedures</a>
+                        <a href="#">Hospitals</a>
+                        <a href="#">Insurance</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Stealthy. All rights reserved.</p>
+                <p>&copy; 2025 Stealthy. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <!-- Waitlist Modal -->
-    <div id="waitlistModal" class="modal">
+    <div class="modal" id="waitlistModal">
         <div class="modal-content">
             <button class="modal-close" onclick="closeWaitlist()">&times;</button>
-            <h2>Join the Waitlist</h2>
-            <p>Be among the first to know when we launch!</p>
-
-            <form class="waitlist-form" onsubmit="submitWaitlist(event)">
-                <input type="email" placeholder="Enter your email" required>
-                <button type="submit" class="btn-primary">Join Waitlist</button>
+            <h2 class="modal-title">Join the Healthcare Transparency Revolution</h2>
+            <p class="modal-subtitle">Be the first to know when we launch</p>
+            <form class="waitlist-form" action="https://formsubmit.co/tony@kikoff.com" method="POST" onsubmit="handleWaitlistSubmit(event)">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="hidden" name="_cc" value="tyler@kikoff.com,gregroie@kikoff.com">
+                <input type="hidden" name="_subject" value="New Stealthy Waitlist Signup!">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://stealthy.com/thank-you">
+                <button type="submit" class="btn-primary-large">Join Waitlist</button>
             </form>
-
-            <div id="successMessage" class="success-message">
-                <span class="success-icon">✓</span>
-                <p>Thank you! We'll be in touch soon.</p>
+            <p class="modal-note">We'll never spam you. Unsubscribe anytime.</p>
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h3>You're on the list!</h3>
+                <p>We'll notify you when we launch.</p>
             </div>
         </div>
     </div>
