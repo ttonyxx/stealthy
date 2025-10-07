@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Stealthy</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#FF6B9D"/>
+                                <stop offset="100%" style="stop-color:#FEC5E5"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">stealthy</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="index.html#procedures">Procedures</a>
+                    <a href="about.html" class="active">About</a>
+                    <button class="btn-primary" onclick="openWaitlist()">Join Waitlist</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero about-hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Meet the Team</h1>
+            <p class="hero-subtitle">
+                We're a group of students passionate about making healthcare transparent and affordable for everyone.
+            </p>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-description">
+                    Three friends who believe healthcare costs shouldn't be a mystery
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Team Member 1 -->
+                <div class="team-card">
+                    <div class="team-image-wrapper">
+                        <img src="images/426103789_1848592098992540_7033298513583560146_n.jpg" alt="Alex hiking" class="team-image">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Alex Rivera</h3>
+                        <p class="team-role">Co-Founder & CEO</p>
+                        <p class="team-bio">
+                            Pre-med student turned healthcare entrepreneur. After experiencing the complexity of medical billing firsthand,
+                            Alex founded Stealthy to bring transparency to healthcare pricing and help patients make informed decisions.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 2 -->
+                <div class="team-card">
+                    <div class="team-image-wrapper">
+                        <img src="images/greg.webp" alt="Greg" class="team-image">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Greg Thompson</h3>
+                        <p class="team-role">Co-Founder & CTO</p>
+                        <p class="team-bio">
+                            Full-stack developer and data scientist. Greg built the algorithms that power our price
+                            comparison engine, making it possible to analyze thousands of medical procedures and find the best value for patients.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Team Member 3 -->
+                <div class="team-card">
+                    <div class="team-image-wrapper">
+                        <img src="images/image (3).png" alt="Michael" class="team-image">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Michael Chen</h3>
+                        <p class="team-role">Head of Product</p>
+                        <p class="team-bio">
+                            Economics and Psychology double major focused on user experience. Michael ensures that
+                            Stealthy is intuitive and accessible to everyone, regardless of their tech savviness.
+                        </p>
+                        <div class="team-social">
+                            <a href="#" class="social-link">LinkedIn</a>
+                            <a href="#" class="social-link">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="mission-section">
+        <div class="container">
+            <div class="mission-content">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="mission-text">
+                    We believe that healthcare costs should be transparent, predictable, and fair. Too many people
+                    are surprised by massive medical bills after receiving care. We're changing that by giving
+                    patients the power to compare prices, understand their options, and make informed decisions
+                    about their healthcare.
+                </p>
+                <p class="mission-text">
+                    Stealthy started as a class project but quickly became our passion. We've interviewed hundreds
+                    of patients, analyzed thousands of medical bills, and built a platform that we wish existed
+                    when we needed it most.
+                </p>
+                <div class="mission-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Procedures Analyzed</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Hospitals Covered</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">$2M+</div>
+                        <div class="stat-label">Saved for Patients</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Join Us in Making Healthcare Transparent</h2>
+            <p class="cta-text">
+                Be among the first to experience price transparency in healthcare
+            </p>
+            <button class="btn-primary btn-large" onclick="openWaitlist()">
+                Join Our Waitlist
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h4>Stealthy</h4>
+                    <p>Making healthcare costs transparent and accessible.</p>
+                </div>
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <a href="index.html#procedures">Browse Procedures</a>
+                    <a href="index.html#how-it-works">How It Works</a>
+                    <a href="#">Pricing</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="about.html">About Us</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Stealthy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Waitlist Modal -->
+    <div id="waitlistModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWaitlist()">&times;</button>
+            <h2>Join the Waitlist</h2>
+            <p>Be among the first to know when we launch!</p>
+
+            <form class="waitlist-form" onsubmit="submitWaitlist(event)">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit" class="btn-primary">Join Waitlist</button>
+            </form>
+
+            <div id="successMessage" class="success-message">
+                <span class="success-icon">✓</span>
+                <p>Thank you! We'll be in touch soon.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
