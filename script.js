@@ -160,7 +160,7 @@ window.addEventListener('scroll', () => {
 // Add hover effect to saving cards - show more details
 document.querySelectorAll('.saving-card').forEach(card => {
     card.addEventListener('mouseenter', function() {
-        this.style.borderColor = 'var(--pink-primary)';
+        this.style.borderColor = 'var(--primary-color)';
     });
 
     card.addEventListener('mouseleave', function() {
@@ -238,11 +238,11 @@ function performSearch() {
         position: fixed;
         bottom: 30px;
         right: 30px;
-        background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+        background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
         color: white;
         padding: 20px 30px;
         border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+        box-shadow: 0 8px 20px rgba(45, 106, 79, 0.3);
         z-index: 1000;
         animation: slideInRight 0.5s ease;
         max-width: 300px;
@@ -276,7 +276,7 @@ searchInput.addEventListener('input', (e) => {
 
     // Add visual feedback
     if (searchTerm.length > 0) {
-        searchInput.style.borderColor = 'var(--pink-primary)';
+        searchInput.style.borderColor = 'var(--primary-color)';
     } else {
         searchInput.style.borderColor = 'var(--gray-300)';
     }
@@ -335,16 +335,16 @@ document.addEventListener('keydown', (e) => {
 
     if (konamiCode.join('') === konamiSequence.join('')) {
         // Change theme colors temporarily
-        document.documentElement.style.setProperty('--pink-primary', '#FFD700');
-        document.documentElement.style.setProperty('--pink-light', '#FFA500');
+        document.documentElement.style.setProperty('--primary-color', '#FFD700');
+        document.documentElement.style.setProperty('--primary-light', '#FFA500');
 
         // Show confetti or special message
         alert('🎉 You found the secret! Healthcare transparency for all! 🎉');
 
         // Reset after 5 seconds
         setTimeout(() => {
-            document.documentElement.style.setProperty('--pink-primary', '#FF6B9D');
-            document.documentElement.style.setProperty('--pink-light', '#FFB3D9');
+            document.documentElement.style.setProperty('--primary-color', '#2D6A4F');
+            document.documentElement.style.setProperty('--primary-light', '#52B788');
         }, 5000);
 
         konamiCode = [];
@@ -408,6 +408,12 @@ window.addEventListener('scroll', () => {
 // Footer link functionality
 document.querySelectorAll('.footer-column a').forEach(link => {
     link.addEventListener('click', function(e) {
+        // Skip the "coming soon" modal for links with actual href values
+        const href = this.getAttribute('href');
+        if (href && href !== '#' && href !== '') {
+            return; // Allow the link to work normally
+        }
+
         e.preventDefault();
         const linkText = this.textContent;
 
@@ -430,14 +436,14 @@ document.querySelectorAll('.footer-column a').forEach(link => {
         `;
         comingSoonMessage.innerHTML = `
             <div style="font-size: 48px; margin-bottom: 16px;">🚧</div>
-            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--pink-primary);">
+            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--primary-color);">
                 Coming Soon!
             </h3>
             <p style="color: var(--gray-700); font-size: 16px; margin-bottom: 20px;">
                 <strong>${linkText}</strong> page is under construction.
             </p>
             <button onclick="this.parentElement.remove(); document.getElementById('overlay').remove();"
-                    style="background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+                    style="background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
                            color: white; border: none; padding: 12px 24px; border-radius: 8px;
                            font-weight: 600; cursor: pointer; transition: transform 0.2s ease;">
                 Got it!
