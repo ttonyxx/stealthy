@@ -157,6 +157,8 @@ body {
     margin: 0 auto 60px;
     position: relative;
     animation: fadeInUp 0.8s ease;
+    display: flex;
+    gap: 12px;
 }
 
 .search-icon {
@@ -164,10 +166,11 @@ body {
     left: 20px;
     top: 50%;
     transform: translateY(-50%);
+    pointer-events: none;
 }
 
 .search-box input {
-    width: 100%;
+    flex: 1;
     padding: 18px 20px 18px 52px;
     border: 2px solid var(--gray-300);
     border-radius: 12px;
@@ -180,6 +183,24 @@ body {
     outline: none;
     border-color: var(--pink-primary);
     box-shadow: 0 0 0 4px rgba(255, 107, 157, 0.1);
+}
+
+.search-btn {
+    background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+    color: var(--white);
+    border: none;
+    padding: 18px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(255, 107, 157, 0.3);
 }
 
 /* Stats Row */
@@ -821,6 +842,29 @@ body {
     padding-top: 30px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     color: var(--gray-500);
+}
+
+/* Search Animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOutRight {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
 }
 
 /* Responsive Design */

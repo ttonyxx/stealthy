@@ -72,17 +72,24 @@ tabs.forEach(tab => {
         // Add active class to clicked tab
         this.classList.add('active');
 
-        // Here you would typically filter the procedure cards
+        // Filter procedure cards by category
         const category = this.getAttribute('data-category');
-        console.log('Selected category:', category);
-
-        // Add animation to cards
         const cards = document.querySelectorAll('.procedure-card');
+
         cards.forEach((card, index) => {
-            card.style.animation = 'none';
-            setTimeout(() => {
-                card.style.animation = `fadeInUp 0.5s ease ${index * 0.1}s`;
-            }, 10);
+            const cardCategory = card.getAttribute('data-category');
+
+            if (cardCategory === category) {
+                // Show cards matching the selected category
+                card.style.display = 'block';
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = `fadeInUp 0.5s ease ${index * 0.05}s`;
+                }, 10);
+            } else {
+                // Hide cards that don't match
+                card.style.display = 'none';
+            }
         });
     });
 });
@@ -182,11 +189,65 @@ document.querySelectorAll('.stat-card').forEach(card => {
     statsObserver.observe(card);
 });
 
-// Add search functionality (placeholder)
+// Search functionality
 const searchInput = document.querySelector('.search-box input');
+
+// Perform search function
+function performSearch() {
+    const searchTerm = searchInput.value.trim().toLowerCase();
+
+    if (searchTerm.length === 0) {
+        alert('Please enter a search term');
+        return;
+    }
+
+    // Scroll to procedures section
+    const proceduresSection = document.getElementById('procedures');
+    if (proceduresSection) {
+        proceduresSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Show a temporary search results message
+    const searchMessage = document.createElement('div');
+    searchMessage.style.cssText = `
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+        color: white;
+        padding: 20px 30px;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(255, 107, 157, 0.3);
+        z-index: 1000;
+        animation: slideInRight 0.5s ease;
+        max-width: 300px;
+    `;
+    searchMessage.innerHTML = `
+        <strong>🔍 Searching for:</strong><br>
+        "${searchTerm}"<br>
+        <small style="opacity: 0.9; font-size: 13px;">Full search results coming soon!</small>
+    `;
+    document.body.appendChild(searchMessage);
+
+    // Remove message after 4 seconds
+    setTimeout(() => {
+        searchMessage.style.animation = 'slideOutRight 0.5s ease';
+        setTimeout(() => searchMessage.remove(), 500);
+    }, 4000);
+
+    console.log('Searching for:', searchTerm);
+}
+
+// Add enter key support for search
+searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        performSearch();
+    }
+});
+
+// Add visual feedback on input
 searchInput.addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
-    console.log('Searching for:', searchTerm);
 
     // Add visual feedback
     if (searchTerm.length > 0) {
@@ -317,6 +378,69 @@ window.addEventListener('scroll', () => {
     const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (window.pageYOffset / windowHeight) * 100;
     scrollProgress.style.width = scrolled + '%';
+});
+
+// Footer link functionality
+document.querySelectorAll('.footer-column a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const linkText = this.textContent;
+
+        // Show "coming soon" message
+        const comingSoonMessage = document.createElement('div');
+        comingSoonMessage.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            color: var(--gray-900);
+            padding: 40px 50px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            text-align: center;
+            animation: scaleIn 0.3s ease;
+            max-width: 400px;
+        `;
+        comingSoonMessage.innerHTML = `
+            <div style="font-size: 48px; margin-bottom: 16px;">🚧</div>
+            <h3 style="font-size: 24px; font-weight: 700; margin-bottom: 12px; color: var(--pink-primary);">
+                Coming Soon!
+            </h3>
+            <p style="color: var(--gray-700); font-size: 16px; margin-bottom: 20px;">
+                <strong>${linkText}</strong> page is under construction.
+            </p>
+            <button onclick="this.parentElement.remove(); document.getElementById('overlay').remove();"
+                    style="background: linear-gradient(135deg, var(--pink-primary), var(--pink-light));
+                           color: white; border: none; padding: 12px 24px; border-radius: 8px;
+                           font-weight: 600; cursor: pointer; transition: transform 0.2s ease;">
+                Got it!
+            </button>
+        `;
+
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.id = 'overlay';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 1999;
+            animation: fadeIn 0.3s ease;
+        `;
+        overlay.addEventListener('click', () => {
+            comingSoonMessage.remove();
+            overlay.remove();
+        });
+
+        document.body.appendChild(overlay);
+        document.body.appendChild(comingSoonMessage);
+    });
 });
 
 console.log('🏥 Stealthy - Healthcare Transparency Platform');

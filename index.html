@@ -46,7 +46,8 @@
                 <svg class="search-icon" width="20" height="20" viewBox="0 0 20 20" fill="none">
                     <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="#999" stroke-width="2" stroke-linecap="round"/>
                 </svg>
-                <input type="text" placeholder="Search by Procedure, Hospital, or Insurance...">
+                <input type="text" id="searchInput" placeholder="Search by Procedure, Hospital, or Insurance...">
+                <button class="search-btn" onclick="performSearch()">Search</button>
             </div>
 
             <div class="stats-row">
@@ -155,7 +156,7 @@
             </div>
 
             <div class="procedure-cards">
-                <div class="procedure-card">
+                <div class="procedure-card" data-category="imaging">
                     <div class="procedure-header">
                         <h3>MRI Scan</h3>
                         <span class="procedure-count">847 reports</span>
@@ -167,7 +168,7 @@
                     <div class="procedure-insurance">Most Common: Blue Cross</div>
                 </div>
 
-                <div class="procedure-card">
+                <div class="procedure-card" data-category="imaging">
                     <div class="procedure-header">
                         <h3>CT Scan</h3>
                         <span class="procedure-count">623 reports</span>
@@ -179,7 +180,7 @@
                     <div class="procedure-insurance">Most Common: UnitedHealthcare</div>
                 </div>
 
-                <div class="procedure-card">
+                <div class="procedure-card" data-category="imaging">
                     <div class="procedure-header">
                         <h3>X-Ray</h3>
                         <span class="procedure-count">1,203 reports</span>
@@ -191,7 +192,7 @@
                     <div class="procedure-insurance">Most Common: Aetna</div>
                 </div>
 
-                <div class="procedure-card">
+                <div class="procedure-card" data-category="imaging">
                     <div class="procedure-header">
                         <h3>Ultrasound</h3>
                         <span class="procedure-count">892 reports</span>
@@ -199,6 +200,150 @@
                     <div class="price-range">
                         <span class="price-label">Typical Range</span>
                         <span class="price-value">$300 - $2,500</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Cigna</div>
+                </div>
+
+                <div class="procedure-card" data-category="surgery" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Knee Arthroscopy</h3>
+                        <span class="procedure-count">412 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$8,500 - $22,500</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Aetna</div>
+                </div>
+
+                <div class="procedure-card" data-category="surgery" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Hip Replacement</h3>
+                        <span class="procedure-count">289 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$18,000 - $45,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Medicare</div>
+                </div>
+
+                <div class="procedure-card" data-category="surgery" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Appendectomy</h3>
+                        <span class="procedure-count">567 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$7,000 - $18,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Blue Cross</div>
+                </div>
+
+                <div class="procedure-card" data-category="surgery" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Gallbladder Removal</h3>
+                        <span class="procedure-count">334 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$6,500 - $16,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: UnitedHealthcare</div>
+                </div>
+
+                <div class="procedure-card" data-category="labs" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Blood Work Panel</h3>
+                        <span class="procedure-count">1,456 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$50 - $800</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Cigna</div>
+                </div>
+
+                <div class="procedure-card" data-category="labs" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Urinalysis</h3>
+                        <span class="procedure-count">923 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$20 - $200</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Aetna</div>
+                </div>
+
+                <div class="procedure-card" data-category="labs" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>STD Testing</h3>
+                        <span class="procedure-count">678 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$80 - $450</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Blue Cross</div>
+                </div>
+
+                <div class="procedure-card" data-category="labs" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Allergy Testing</h3>
+                        <span class="procedure-count">445 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$150 - $900</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: UnitedHealthcare</div>
+                </div>
+
+                <div class="procedure-card" data-category="maternity" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Prenatal Care Package</h3>
+                        <span class="procedure-count">512 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$1,500 - $6,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Blue Cross</div>
+                </div>
+
+                <div class="procedure-card" data-category="maternity" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>C-Section Delivery</h3>
+                        <span class="procedure-count">789 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$8,000 - $20,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: Aetna</div>
+                </div>
+
+                <div class="procedure-card" data-category="maternity" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Vaginal Delivery</h3>
+                        <span class="procedure-count">891 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$5,000 - $15,000</span>
+                    </div>
+                    <div class="procedure-insurance">Most Common: UnitedHealthcare</div>
+                </div>
+
+                <div class="procedure-card" data-category="maternity" style="display: none;">
+                    <div class="procedure-header">
+                        <h3>Ultrasound (Prenatal)</h3>
+                        <span class="procedure-count">1,123 reports</span>
+                    </div>
+                    <div class="price-range">
+                        <span class="price-label">Typical Range</span>
+                        <span class="price-value">$200 - $1,200</span>
                     </div>
                     <div class="procedure-insurance">Most Common: Cigna</div>
                 </div>
