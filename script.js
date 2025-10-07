@@ -39,27 +39,52 @@ document.getElementById('waitlistModal').addEventListener('click', function(e) {
 });
 
 // Handle waitlist form submission
-function submitWaitlist(e) {
+function handleWaitlistSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
     const email = form.querySelector('input[type="email"]').value;
 
-    // Here you would typically send the email to your backend
     console.log('Waitlist signup:', email);
 
-    // Show success message
-    form.style.display = 'none';
-    const successMessage = document.getElementById('successMessage');
-    successMessage.classList.add('active');
+    // Submit form via AJAX to avoid page redirect
+    const formData = new FormData(form);
 
-    // Reset form
-    form.reset();
+    fetch('https://formsubmit.co/ajax/tony@kikoff.com', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            _subject: 'New Stealthy Waitlist Signup!',
+            _template: 'box',
+            _cc: 'tyler@kikoff.com,gregroie@kikoff.com',
+            _captcha: 'false'
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Form submitted successfully:', data);
 
-    // Close modal after 3 seconds
-    setTimeout(() => {
-        closeWaitlist();
-    }, 3000);
+        // Show success message
+        form.style.display = 'none';
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('active');
+
+        // Reset form
+        form.reset();
+
+        // Close modal after 3 seconds
+        setTimeout(() => {
+            closeWaitlist();
+        }, 3000);
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        alert('There was an error submitting your email. Please try again.');
+    });
 }
 
 // Tab functionality for procedures

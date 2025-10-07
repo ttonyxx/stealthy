@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stealthy - Get Healthcare, Not Played</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Merriweather+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Navigation -->
@@ -27,8 +27,8 @@
                 </div>
                 <div class="nav-links">
                     <a href="#procedures">Procedures</a>
-                    <a href="#how-it-works">How It Works</a>
                     <a href="#savings">Savings</a>
+                    <a href="#how-it-works">How it works</a>
                     <a href="about.html">About</a>
                     <button class="btn-primary" onclick="openWaitlist()">Join Waitlist</button>
                 </div>
@@ -54,17 +54,17 @@
             <div class="stats-row">
                 <div class="stat-card fade-in">
                     <div class="stat-icon">💰</div>
-                    <div class="stat-number">$847K+</div>
+                    <div class="stat-number">$13.6M+</div>
                     <div class="stat-label">Total Saved</div>
                 </div>
                 <div class="stat-card fade-in" style="animation-delay: 0.1s">
                     <div class="stat-icon">🏥</div>
-                    <div class="stat-number">2,400+</div>
+                    <div class="stat-number">42,083+</div>
                     <div class="stat-label">Procedures Shared</div>
                 </div>
                 <div class="stat-card fade-in" style="animation-delay: 0.2s">
                     <div class="stat-icon">👥</div>
-                    <div class="stat-number">15K+</div>
+                    <div class="stat-number">58.5K+</div>
                     <div class="stat-label">Community Members</div>
                 </div>
             </div>
@@ -401,8 +401,13 @@
             <button class="modal-close" onclick="closeWaitlist()">&times;</button>
             <h2 class="modal-title">Join the Healthcare Transparency Revolution</h2>
             <p class="modal-subtitle">Be the first to know when we launch</p>
-            <form class="waitlist-form" onsubmit="submitWaitlist(event)">
-                <input type="email" placeholder="Enter your email" required>
+            <form class="waitlist-form" action="https://formsubmit.co/tony@kikoff.com" method="POST" onsubmit="handleWaitlistSubmit(event)">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="hidden" name="_cc" value="tyler@kikoff.com,gregroie@kikoff.com">
+                <input type="hidden" name="_subject" value="New Stealthy Waitlist Signup!">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_next" value="https://stealthy.com/thank-you">
                 <button type="submit" class="btn-primary-large">Join Waitlist</button>
             </form>
             <p class="modal-note">We'll never spam you. Unsubscribe anytime.</p>
