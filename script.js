@@ -169,7 +169,7 @@ document.querySelectorAll('.saving-card').forEach(card => {
 });
 
 // Animate numbers counting up
-function animateNumber(element, target, duration = 2000) {
+function animateNumber(element, target, duration = 2000, originalText) {
     const start = 0;
     const increment = target / (duration / 16);
     let current = start;
@@ -181,7 +181,14 @@ function animateNumber(element, target, duration = 2000) {
             clearInterval(timer);
         }
 
-        if (target >= 1000) {
+        // Format based on original text pattern
+        if (originalText.includes('M')) {
+            element.textContent = '$' + (current / 1000000).toFixed(1) + 'M';
+        } else if (originalText.includes('%')) {
+            element.textContent = Math.floor(current) + '%';
+        } else if (originalText.includes(',')) {
+            element.textContent = Math.floor(current).toLocaleString();
+        } else if (target >= 1000) {
             element.textContent = '$' + Math.floor(current / 1000) + 'K+';
         } else {
             element.textContent = Math.floor(current).toLocaleString() + '+';
@@ -199,13 +206,15 @@ const statsObserver = new IntersectionObserver((entries) => {
 
             // Extract number from text
             let target;
-            if (text.includes('$')) {
+            if (text.includes('M')) {
+                target = parseFloat(text.replace(/[^0-9.]/g, '')) * 1000000;
+            } else if (text.includes('%')) {
                 target = parseInt(text.replace(/[^0-9]/g, ''));
             } else {
                 target = parseInt(text.replace(/[^0-9]/g, ''));
             }
 
-            animateNumber(number, target);
+            animateNumber(number, target, 2000, text);
         }
     });
 }, { threshold: 0.5 });
