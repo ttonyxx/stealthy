@@ -240,53 +240,277 @@ function resetUpload() {
     billUpload.value = '';
 }
 
-// Initiate call
+// Dispute letter text template
+const disputeLetterText = `Dear Billing Department at Memorial Hospital,
+
+I am writing to formally dispute the charges outlined in bill #[BILL_NUMBER] dated [SERVICE_DATE].
+
+After careful review of the itemized statement, I have identified several discrepancies that require immediate attention:
+
+1. OVERCHARGING: Several line items appear to be billed at rates significantly higher than the Medicare-approved amounts for similar procedures in this geographic area.
+
+2. DUPLICATE CHARGES: I have noticed what appears to be duplicate billing for certain services that should only have been charged once.
+
+3. LACK OF PRIOR AUTHORIZATION: Some procedures were not pre-authorized by my insurance provider, yet were performed without my explicit consent or knowledge of potential out-of-pocket costs.
+
+4. CODING ERRORS: The CPT codes used may not accurately reflect the services actually rendered.
+
+Under the Fair Debt Collection Practices Act and the No Surprises Act, I am entitled to an accurate and itemized bill. I request the following:
+
+• A detailed, itemized breakdown of all charges
+• Documentation supporting the medical necessity of each service
+• Evidence that all charges comply with my insurance contract
+• Adjustment of any erroneous or excessive charges
+
+I am prepared to pay all legitimate charges once these discrepancies are resolved. Please respond within 30 days as required by law.
+
+Sincerely,
+[Your Name]`;
+
+// Track completion status of both modals
+let negotiationLoadingComplete = false;
+let letterLoadingComplete = false;
+let callInitiated = false;
+let letterSent = false;
+
+// Start the modal flow - now shows dual modals
 function initiateCall() {
-    const loadingOverlay = document.getElementById('loadingOverlay');
+    const dualModalOverlay = document.getElementById('dualModalOverlay');
     const callButton = document.getElementById('callButton');
+
+    // Reset completion status
+    negotiationLoadingComplete = false;
+    letterLoadingComplete = false;
+    callInitiated = false;
+    letterSent = false;
 
     // Disable button
     callButton.disabled = true;
     callButton.style.opacity = '0.6';
 
-    // Show loading overlay
-    loadingOverlay.style.display = 'flex';
+    // Show dual modal overlay
+    dualModalOverlay.style.display = 'flex';
 
-    // Simulate call process
-    setTimeout(() => {
-        document.getElementById('step1').classList.add('completed');
-        document.getElementById('step2').classList.add('active');
-    }, 2000);
+    // Start AI negotiation process
+    startNegotiationProcess();
 
-    setTimeout(() => {
-        document.getElementById('step2').classList.add('completed');
-        document.getElementById('step3').classList.add('active');
-    }, 4000);
-
-    setTimeout(() => {
-        document.getElementById('step3').classList.add('completed');
-
-        // Show success message
-        loadingOverlay.innerHTML = `
-            <div class="loading-content">
-                <div class="success-checkmark">
-                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2">
-                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                    </svg>
-                </div>
-                <h3 class="loading-title">Negotiation Initiated!</h3>
-                <p class="loading-text">We've contacted the provider and started the negotiation process. You'll receive an email update within 24-48 hours.</p>
-                <button class="btn-primary-large" onclick="closeLoading()">Got it</button>
-            </div>
-        `;
-    }, 6000);
+    // Start typewriter effect for dispute letter
+    startTypewriterEffect();
 }
 
-// Close loading overlay
-function closeLoading() {
-    const loadingOverlay = document.getElementById('loadingOverlay');
-    loadingOverlay.style.display = 'none';
+// Start the AI negotiation process
+function startNegotiationProcess() {
+    // Simulate negotiation steps
+    setTimeout(() => {
+        document.getElementById('negStep1').classList.add('completed');
+        document.getElementById('negStep2').classList.add('active');
+    }, 1500);
+
+    setTimeout(() => {
+        document.getElementById('negStep2').classList.add('completed');
+        document.getElementById('negStep3').classList.add('active');
+    }, 3000);
+
+    setTimeout(() => {
+        document.getElementById('negStep3').classList.add('completed');
+
+        // Mark loading as complete
+        negotiationLoadingComplete = true;
+
+        // Hide spinner and show button
+        const aiModal = document.getElementById('aiNegotiationModal');
+        const spinner = aiModal.querySelector('.loading-spinner-small');
+        if (spinner) spinner.style.display = 'none';
+
+        // Show the "Initiate Call" button
+        document.getElementById('aiModalFooter').style.display = 'flex';
+    }, 4500);
+}
+
+// Initiate the phone call with audio visualizer
+function initiatePhoneCall() {
+    const aiModalBody = document.getElementById('aiModalBody');
+    const aiModalFooter = document.getElementById('aiModalFooter');
+
+    // Hide existing content and button
+    aiModalBody.style.display = 'none';
+    aiModalFooter.style.display = 'none';
+
+    // Create audio visualizer container
+    const visualizerContainer = document.createElement('div');
+    visualizerContainer.className = 'audio-visualizer-container';
+    visualizerContainer.innerHTML = `
+        <div class="call-status">
+            <div class="call-icon-pulse">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+            </div>
+            <p class="call-text">Call Initiated</p>
+        </div>
+        <div class="audio-visualizer" id="audioVisualizer">
+            ${Array(20).fill(0).map((_, i) => `<div class="audio-bar" id="bar-${i}"></div>`).join('')}
+        </div>
+    `;
+
+    const aiModal = document.getElementById('aiNegotiationModal');
+    aiModal.querySelector('.modal-body').parentNode.insertBefore(visualizerContainer, aiModal.querySelector('.modal-body').nextSibling);
+
+    // Start randomized audio animation
+    startAudioVisualization();
+
+    // Mark call as initiated immediately
+    callInitiated = true;
+    checkBothActionsComplete();
+}
+
+// Animate audio bars with random heights
+function startAudioVisualization() {
+    const bars = document.querySelectorAll('.audio-bar');
+
+    function animateBars() {
+        bars.forEach((bar, index) => {
+            // Generate random height between 20% and 100%
+            const randomHeight = Math.random() * 80 + 20;
+            bar.style.height = randomHeight + '%';
+
+            // Vary the transition speed for more natural feel
+            const transitionSpeed = 0.1 + Math.random() * 0.15;
+            bar.style.transition = `height ${transitionSpeed}s ease`;
+        });
+    }
+
+    // Initial animation
+    animateBars();
+
+    // Continue animating at random intervals
+    setInterval(() => {
+        animateBars();
+    }, 150); // Update every 150ms for smooth, realistic audio effect
+}
+
+// Typewriter effect for dispute letter (writes in chunks)
+function startTypewriterEffect() {
+    const letterContent = document.getElementById('disputeLetterContent');
+    letterContent.textContent = ''; // Clear any existing content
+
+    // Split text into words for chunked typing
+    const words = disputeLetterText.split(' ');
+    let wordIndex = 0;
+
+    // Calculate timing to complete in ~4.5 seconds (matching negotiation)
+    const totalDuration = 4500; // milliseconds
+    const intervalSpeed = totalDuration / words.length; // distribute evenly
+
+    function typeChunk() {
+        if (wordIndex < words.length) {
+            // Add 1-2 words at a time for faster, more natural typing
+            const wordsToAdd = Math.min(2, words.length - wordIndex);
+            const chunk = words.slice(wordIndex, wordIndex + wordsToAdd).join(' ') + ' ';
+
+            letterContent.textContent += chunk;
+            wordIndex += wordsToAdd;
+
+            // Auto-scroll to bottom as text appears
+            letterContent.scrollTop = letterContent.scrollHeight;
+
+            setTimeout(typeChunk, intervalSpeed);
+        } else {
+            // Typing complete - show button
+            letterLoadingComplete = true;
+            document.getElementById('letterModalFooter').style.display = 'flex';
+        }
+    }
+
+    // Start typing after a brief delay
+    setTimeout(typeChunk, 500);
+}
+
+// Send dispute letter with animation
+function sendDisputeLetter() {
+    const letterModalBody = document.getElementById('letterModalBody');
+    const letterModalFooter = document.getElementById('letterModalFooter');
+
+    // Hide existing content and button
+    letterModalBody.style.display = 'none';
+    letterModalFooter.style.display = 'none';
+
+    // Create letter animation container
+    const animationContainer = document.createElement('div');
+    animationContainer.className = 'letter-animation-container';
+    animationContainer.innerHTML = `
+        <div class="letter-envelope">
+            <svg class="envelope-icon" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <div class="letter-paper">
+                <div class="letter-lines"></div>
+                <div class="letter-lines"></div>
+                <div class="letter-lines"></div>
+            </div>
+        </div>
+        <p class="sending-text">Scheduling letter...</p>
+    `;
+
+    const letterModal = document.getElementById('disputeLetterModal');
+    letterModal.querySelector('.modal-body').parentNode.insertBefore(animationContainer, letterModal.querySelector('.modal-body').nextSibling);
+
+    // Show scheduled message after brief animation
+    setTimeout(() => {
+        animationContainer.innerHTML = `
+            <div class="letter-scheduled">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--primary-color)" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                </svg>
+                <p style="color: var(--primary-color); font-weight: 700; font-size: 18px; margin-top: 1rem;">Letter Scheduled</p>
+                <p style="color: var(--gray-700); font-size: 14px; margin-top: 0.5rem;">Dispute letter will be sent in the next 24 hours</p>
+            </div>
+        `;
+
+        // Mark letter as sent (scheduled)
+        letterSent = true;
+        checkBothActionsComplete();
+    }, 1500);
+}
+
+// Check if both actions are complete and show proceed button
+function checkBothActionsComplete() {
+    if (callInitiated && letterSent) {
+        const confirmContainer = document.getElementById('confirmButtonContainer');
+        confirmContainer.style.display = 'flex';
+
+        // Animate button appearance
+        setTimeout(() => {
+            confirmContainer.style.opacity = '1';
+        }, 100);
+    }
+}
+
+// Handle confirmation
+function confirmNegotiation() {
+    const dualModalOverlay = document.getElementById('dualModalOverlay');
+
+    // Show success message
+    dualModalOverlay.innerHTML = `
+        <div class="success-overlay">
+            <div class="success-checkmark">
+                <svg width="100" height="100" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h3 class="success-title">Negotiation Initiated!</h3>
+            <p class="success-text">We've contacted the provider with your dispute letter and started the AI negotiation process. You'll receive an email update within 24-48 hours.</p>
+            <button class="btn-primary-large" onclick="closeModals()">Got it</button>
+        </div>
+    `;
+}
+
+// Close modals
+function closeModals() {
+    const dualModalOverlay = document.getElementById('dualModalOverlay');
+    dualModalOverlay.style.display = 'none';
 
     // Show success message on button
     const callButtonText = document.getElementById('callButtonText');

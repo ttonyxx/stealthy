@@ -170,33 +170,77 @@
                         <p class="cta-text">Our team will contact the provider on your behalf to negotiate a better rate</p>
                         <button class="btn-negotiate" id="callButton" onclick="initiateCall()">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <line x1="12" y1="9" x2="12" y2="13" stroke-width="2" stroke-linecap="round"/>
+                                <line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2" stroke-linecap="round"/>
                             </svg>
-                            <span id="callButtonText">Start Negotiation Call</span>
+                            <span id="callButtonText">Slash Medical Bill</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Loading State -->
-                <div class="loading-overlay" id="loadingOverlay" style="display: none;">
-                    <div class="loading-content">
-                        <div class="loading-spinner"></div>
-                        <h3 class="loading-title">Connecting to Provider...</h3>
-                        <p class="loading-text">This may take a moment. Please don't close this page.</p>
-                        <div class="loading-steps">
-                            <div class="step-item active" id="step1">
-                                <div class="step-dot"></div>
-                                <p>Verifying bill details</p>
+                <!-- Dual Modal Overlay -->
+                <div class="dual-modal-overlay" id="dualModalOverlay" style="display: none;">
+                    <div class="dual-modal-container">
+                        <!-- AI Negotiation Modal -->
+                        <div class="modal-card" id="aiNegotiationModal">
+                            <div class="modal-header">
+                                <h3 class="modal-title">🤖 AI Negotiation</h3>
                             </div>
-                            <div class="step-item" id="step2">
-                                <div class="step-dot"></div>
-                                <p>Contacting provider</p>
+                            <div class="modal-body" id="aiModalBody">
+                                <div class="loading-spinner-small"></div>
+                                <div class="negotiation-steps">
+                                    <div class="step-item active" id="negStep1">
+                                        <div class="step-dot"></div>
+                                        <p>Analyzing bill details</p>
+                                    </div>
+                                    <div class="step-item" id="negStep2">
+                                        <div class="step-dot"></div>
+                                        <p>Contacting provider</p>
+                                    </div>
+                                    <div class="step-item" id="negStep3">
+                                        <div class="step-dot"></div>
+                                        <p>Negotiating rates</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="step-item" id="step3">
-                                <div class="step-dot"></div>
-                                <p>Negotiating rates</p>
+                            <div class="modal-footer" id="aiModalFooter" style="display: none;">
+                                <button class="btn-modal-action" onclick="initiatePhoneCall()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                    Initiate Call
+                                </button>
                             </div>
                         </div>
+
+                        <!-- Dispute Letter Modal -->
+                        <div class="modal-card" id="disputeLetterModal">
+                            <div class="modal-header">
+                                <h3 class="modal-title">📄 Dispute Letter</h3>
+                            </div>
+                            <div class="modal-body" id="letterModalBody">
+                                <div class="dispute-letter-content" id="disputeLetterContent">
+                                    <!-- Typewriter text will appear here -->
+                                </div>
+                            </div>
+                            <div class="modal-footer" id="letterModalFooter" style="display: none;">
+                                <button class="btn-modal-action" onclick="sendDisputeLetter()">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <line x1="22" y1="2" x2="11" y2="13"/>
+                                        <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                                    </svg>
+                                    Send Dispute Letter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirm Button (appears when both modals are done) -->
+                    <div class="confirm-button-container" id="confirmButtonContainer" style="display: none;">
+                        <button class="btn-confirm" onclick="confirmNegotiation()">
+                            Confirm & Proceed
+                        </button>
                     </div>
                 </div>
             </div>
