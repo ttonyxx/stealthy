@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Stealthy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Serif+4:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <a href="index.html" class="logo">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#2D6A4F"/>
+                                <stop offset="100%" style="stop-color:#74C69D"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">stealthy</span>
+                </a>
+                <div class="nav-links">
+                    <a href="index.html#procedures">Procedures</a>
+                    <a href="index.html#savings">Savings</a>
+                    <a href="index.html#how-it-works">How it works</a>
+                    <a href="about.html">About</a>
+                    <a href="dashboard.html" class="active">Dashboard</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <section class="dashboard-section">
+        <div class="container">
+            <h1 class="dashboard-title">Negotiate Your Bill</h1>
+            <p class="dashboard-subtitle">Upload your medical bill and we'll help you get the best price</p>
+
+            <!-- Upload Area -->
+            <div class="upload-container" id="uploadContainer">
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <h3 class="upload-title">Upload Your Medical Bill</h3>
+                    <p class="upload-text">Drag and drop your bill here, or click to browse</p>
+                    <p class="upload-formats">Supports PDF, JPG, PNG (max 10MB)</p>
+                    <input type="file" id="billUpload" accept=".pdf,.jpg,.jpeg,.png" hidden>
+                    <button class="btn-primary" onclick="document.getElementById('billUpload').click()">
+                        Choose File
+                    </button>
+
+                    <!-- Insurance Selection -->
+                    <div class="insurance-section">
+                        <label for="insuranceProvider" class="insurance-label">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            Your Insurance Provider
+                        </label>
+                        <select id="insuranceProvider" class="insurance-select">
+                            <option value="">Select your insurance...</option>
+                            <option value="blue-cross">Blue Cross Blue Shield</option>
+                            <option value="unitedhealth">UnitedHealthcare</option>
+                            <option value="aetna">Aetna</option>
+                            <option value="cigna">Cigna</option>
+                            <option value="humana">Humana</option>
+                            <option value="kaiser">Kaiser Permanente</option>
+                            <option value="anthem">Anthem</option>
+                            <option value="centene">Centene</option>
+                            <option value="medicare">Medicare</option>
+                            <option value="medicaid">Medicaid</option>
+                            <option value="other">Other</option>
+                            <option value="none">No Insurance</option>
+                        </select>
+
+                        <!-- Other Insurance Input (hidden by default) -->
+                        <input
+                            type="text"
+                            id="otherInsurance"
+                            class="insurance-input"
+                            placeholder="Enter your insurance provider"
+                            style="display: none;"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bill Analysis Results -->
+            <div class="bill-results" id="billResults" style="display: none;">
+                <div class="results-header">
+                    <h2 class="results-title">Bill Analysis Complete</h2>
+                    <button class="btn-secondary" onclick="resetUpload()">Upload New Bill</button>
+                </div>
+
+                <div class="bill-info-grid">
+                    <!-- Bill Overview Card -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Bill Overview</h3>
+                            <span class="card-icon">📄</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Provider:</span>
+                            <span class="info-value" id="provider">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Insurance:</span>
+                            <span class="info-value" id="insuranceDisplay">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Service Date:</span>
+                            <span class="info-value" id="serviceDate">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Bill Number:</span>
+                            <span class="info-value" id="billNumber">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Cost Breakdown Card -->
+                    <div class="info-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Cost Breakdown</h3>
+                            <span class="card-icon">💰</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Original Amount:</span>
+                            <span class="info-value cost-high" id="originalCost">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Insurance Covered:</span>
+                            <span class="info-value" id="insuranceCovered">-</span>
+                        </div>
+                        <div class="info-row highlighted">
+                            <span class="info-label">Amount Due:</span>
+                            <span class="info-value cost-due" id="amountDue">-</span>
+                        </div>
+                    </div>
+
+                    <!-- Negotiation Potential Card -->
+                    <div class="info-card potential-card">
+                        <div class="card-header">
+                            <h3 class="card-title">Negotiation Potential</h3>
+                            <span class="card-icon">📊</span>
+                        </div>
+                        <div class="potential-estimate">
+                            <p class="estimate-label">Estimated Savings:</p>
+                            <p class="estimate-amount" id="estimatedSavings">$0</p>
+                            <p class="estimate-percentage" id="savingsPercentage">0%</p>
+                        </div>
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" id="confidenceFill"></div>
+                        </div>
+                        <p class="confidence-text" id="confidenceText">High confidence based on similar cases</p>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="negotiation-cta">
+                    <div class="cta-content">
+                        <h3 class="cta-title">Ready to Negotiate?</h3>
+                        <p class="cta-text">Our team will contact the provider on your behalf to negotiate a better rate</p>
+                        <button class="btn-negotiate" id="callButton" onclick="initiateCall()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span id="callButtonText">Start Negotiation Call</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                    <div class="loading-content">
+                        <div class="loading-spinner"></div>
+                        <h3 class="loading-title">Connecting to Provider...</h3>
+                        <p class="loading-text">This may take a moment. Please don't close this page.</p>
+                        <div class="loading-steps">
+                            <div class="step-item active" id="step1">
+                                <div class="step-dot"></div>
+                                <p>Verifying bill details</p>
+                            </div>
+                            <div class="step-item" id="step2">
+                                <div class="step-dot"></div>
+                                <p>Contacting provider</p>
+                            </div>
+                            <div class="step-item" id="step3">
+                                <div class="step-dot"></div>
+                                <p>Negotiating rates</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="logo-small">
+                        <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="40" height="40" rx="8" fill="url(#gradient2)"/>
+                            <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                            <defs>
+                                <linearGradient id="gradient2" x1="0" y1="0" x2="40" y2="40">
+                                    <stop offset="0%" style="stop-color:#2D6A4F"/>
+                                    <stop offset="100%" style="stop-color:#74C69D"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <span>stealthy</span>
+                    </div>
+                    <p>Healthcare transparency for everyone.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="index.html#procedures">Procedures</a>
+                        <a href="#">Hospitals</a>
+                        <a href="#">Insurance</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="about.html">About</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Careers</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Legal</h4>
+                        <a href="#">Privacy</a>
+                        <a href="#">Terms</a>
+                        <a href="#">Security</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Stealthy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

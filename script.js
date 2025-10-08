@@ -101,16 +101,17 @@ tabs.forEach(tab => {
         const category = this.getAttribute('data-category');
         const cards = document.querySelectorAll('.procedure-card');
 
-        cards.forEach((card, index) => {
+        // Track visible card index for animation delays
+        let visibleIndex = 0;
+
+        cards.forEach((card) => {
             const cardCategory = card.getAttribute('data-category');
 
             if (cardCategory === category) {
                 // Show cards matching the selected category
                 card.style.display = 'block';
-                card.style.animation = 'none';
-                setTimeout(() => {
-                    card.style.animation = `fadeInUp 0.5s ease ${index * 0.05}s`;
-                }, 10);
+                card.style.animation = `fadeInUp 0.5s ease ${visibleIndex * 0.1}s`;
+                visibleIndex++;
             } else {
                 // Hide cards that don't match
                 card.style.display = 'none';
