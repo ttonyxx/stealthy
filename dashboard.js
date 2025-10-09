@@ -519,4 +519,4 @@ function closeModals() {
     document.getElementById('callButton').style.background = 'var(--green)';
 }
 
-console.log('🏥 Stealthy Dashboard - Bill Negotiation Tool');
+console.log('🏥 Stitches Dashboard - Bill Negotiation Tool');

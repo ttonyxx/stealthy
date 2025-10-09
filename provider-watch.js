@@ -2,17 +2,19 @@
 
 // Mock provider data
 const providers = [
+    // X-Ray providers
     {
         id: 1,
         name: "Bay Area Imaging Center",
         price: 285,
+        procedure: "xray",
         location: "Mission District, San Francisco",
         lat: 37.7599,
         lng: -122.4148,
         distance: "1.2 mi",
         rating: 4.8,
         reviews: 156,
-        insurance: "Blue Cross",
+        insurance: "blue-cross",
         waitTime: "< 1 week",
         image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop",
         sponsored: true
@@ -21,127 +23,339 @@ const providers = [
         id: 2,
         name: "SF Medical Diagnostics",
         price: 320,
+        procedure: "xray",
         location: "Financial District, San Francisco",
         lat: 37.7946,
         lng: -122.4014,
         distance: "2.5 mi",
         rating: 4.6,
         reviews: 203,
-        insurance: "Aetna",
+        insurance: "aetna",
         waitTime: "2-3 days",
         image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=300&fit=crop"
     },
     {
         id: 3,
-        name: "Pacific Heights Health",
-        price: 495,
-        location: "Pacific Heights, San Francisco",
-        lat: 37.7936,
-        lng: -122.4356,
-        distance: "1.8 mi",
-        rating: 4.9,
-        reviews: 412,
-        insurance: "UnitedHealthcare",
-        waitTime: "Same day",
-        image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=400&h=300&fit=crop"
-    },
-    {
-        id: 4,
         name: "Castro Diagnostic Lab",
         price: 245,
+        procedure: "xray",
         location: "Castro, San Francisco",
         lat: 37.7609,
         lng: -122.4350,
         distance: "3.1 mi",
         rating: 4.5,
         reviews: 89,
-        insurance: "Cigna",
+        insurance: "cigna",
         waitTime: "1-2 weeks",
         image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&h=300&fit=crop"
     },
     {
-        id: 5,
+        id: 4,
         name: "Sunset Radiology",
         price: 310,
+        procedure: "xray",
         location: "Sunset District, San Francisco",
         lat: 37.7594,
         lng: -122.4959,
         distance: "5.2 mi",
         rating: 4.7,
         reviews: 134,
-        insurance: "Blue Cross",
+        insurance: "blue-cross",
         waitTime: "3-5 days",
         image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=300&fit=crop"
     },
     {
-        id: 6,
-        name: "Marina Medical Center",
-        price: 420,
-        location: "Marina District, San Francisco",
-        lat: 37.8021,
-        lng: -122.4377,
-        distance: "2.8 mi",
-        rating: 4.8,
-        reviews: 267,
-        insurance: "Aetna",
-        waitTime: "Next day",
-        image: "https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?w=400&h=300&fit=crop"
-    },
-    {
-        id: 7,
+        id: 5,
         name: "SOMA Quick Care",
         price: 225,
+        procedure: "xray",
         location: "SOMA, San Francisco",
         lat: 37.7786,
         lng: -122.4039,
         distance: "1.5 mi",
         rating: 4.4,
         reviews: 178,
-        insurance: "Cigna",
+        insurance: "cigna",
         waitTime: "< 1 week",
         image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop"
     },
+
+    // MRI providers
+    {
+        id: 6,
+        name: "Pacific Heights MRI",
+        price: 1850,
+        procedure: "mri",
+        location: "Pacific Heights, San Francisco",
+        lat: 37.7936,
+        lng: -122.4356,
+        distance: "1.8 mi",
+        rating: 4.9,
+        reviews: 412,
+        insurance: "unitedhealth",
+        waitTime: "Same day",
+        image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=400&h=300&fit=crop"
+    },
+    {
+        id: 7,
+        name: "Advanced Imaging SF",
+        price: 2200,
+        procedure: "mri",
+        location: "Financial District, San Francisco",
+        lat: 37.7946,
+        lng: -122.4094,
+        distance: "2.1 mi",
+        rating: 4.7,
+        reviews: 328,
+        insurance: "aetna",
+        waitTime: "Next day",
+        image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=300&fit=crop"
+    },
     {
         id: 8,
-        name: "Richmond Health Clinic",
-        price: 380,
+        name: "Marina MRI Center",
+        price: 1650,
+        procedure: "mri",
+        location: "Marina District, San Francisco",
+        lat: 37.8021,
+        lng: -122.4377,
+        distance: "2.8 mi",
+        rating: 4.8,
+        reviews: 267,
+        insurance: "blue-cross",
+        waitTime: "2-3 days",
+        image: "https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?w=400&h=300&fit=crop"
+    },
+    {
+        id: 9,
+        name: "Bay Imaging & MRI",
+        price: 1950,
+        procedure: "mri",
+        location: "Mission District, San Francisco",
+        lat: 37.7619,
+        lng: -122.4168,
+        distance: "1.4 mi",
+        rating: 4.6,
+        reviews: 198,
+        insurance: "cigna",
+        waitTime: "< 1 week",
+        image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&h=300&fit=crop"
+    },
+    {
+        id: 10,
+        name: "Richmond Medical Imaging",
+        price: 2100,
+        procedure: "mri",
         location: "Richmond District, San Francisco",
         lat: 37.7799,
         lng: -122.4834,
         distance: "4.3 mi",
-        rating: 4.6,
-        reviews: 95,
-        insurance: "UnitedHealthcare",
-        waitTime: "2-4 days",
+        rating: 4.5,
+        reviews: 156,
+        insurance: "unitedhealth",
+        waitTime: "1 week",
         image: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=400&h=300&fit=crop"
     },
+
+    // CT Scan providers
     {
-        id: 9,
-        name: "Noe Valley Medical",
-        price: 295,
-        location: "Noe Valley, San Francisco",
-        lat: 37.7503,
-        lng: -122.4311,
-        distance: "2.1 mi",
-        rating: 4.7,
-        reviews: 221,
-        insurance: "Blue Cross",
-        waitTime: "1 week",
-        image: "https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=300&fit=crop"
-    },
-    {
-        id: 10,
-        name: "Downtown Diagnostics Plus",
-        price: 525,
+        id: 11,
+        name: "Downtown CT Scan Center",
+        price: 890,
+        procedure: "ct",
         location: "Downtown, San Francisco",
         lat: 37.7879,
         lng: -122.4075,
         distance: "1.9 mi",
         rating: 4.9,
         reviews: 534,
-        insurance: "All Major",
+        insurance: "aetna",
         waitTime: "Walk-in",
         image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=300&fit=crop"
+    },
+    {
+        id: 12,
+        name: "Bay Area CT Diagnostics",
+        price: 750,
+        procedure: "ct",
+        location: "SOMA, San Francisco",
+        lat: 37.7756,
+        lng: -122.4019,
+        distance: "1.6 mi",
+        rating: 4.7,
+        reviews: 289,
+        insurance: "blue-cross",
+        waitTime: "Same day",
+        image: "https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=400&h=300&fit=crop"
+    },
+    {
+        id: 13,
+        name: "Mission Bay Imaging",
+        price: 1050,
+        procedure: "ct",
+        location: "Mission Bay, San Francisco",
+        lat: 37.7699,
+        lng: -122.3918,
+        distance: "3.2 mi",
+        rating: 4.8,
+        reviews: 412,
+        insurance: "cigna",
+        waitTime: "Next day",
+        image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=300&fit=crop"
+    },
+    {
+        id: 14,
+        name: "Nob Hill CT Scan",
+        price: 920,
+        procedure: "ct",
+        location: "Nob Hill, San Francisco",
+        lat: 37.7930,
+        lng: -122.4161,
+        distance: "2.4 mi",
+        rating: 4.6,
+        reviews: 178,
+        insurance: "unitedhealth",
+        waitTime: "2-3 days",
+        image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop"
+    },
+
+    // Ultrasound providers
+    {
+        id: 15,
+        name: "Women's Health Ultrasound",
+        price: 380,
+        procedure: "ultrasound",
+        location: "Castro, San Francisco",
+        lat: 37.7609,
+        lng: -122.4370,
+        distance: "3.3 mi",
+        rating: 4.9,
+        reviews: 456,
+        insurance: "aetna",
+        waitTime: "< 1 week",
+        image: "https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=400&h=300&fit=crop"
+    },
+    {
+        id: 16,
+        name: "Bay Ultrasound Center",
+        price: 295,
+        procedure: "ultrasound",
+        location: "Marina District, San Francisco",
+        lat: 37.8041,
+        lng: -122.4397,
+        distance: "3.0 mi",
+        rating: 4.7,
+        reviews: 312,
+        insurance: "blue-cross",
+        waitTime: "Same day",
+        image: "https://images.unsplash.com/photo-1519494140681-8b17d830a3e9?w=400&h=300&fit=crop"
+    },
+    {
+        id: 17,
+        name: "Noe Valley Medical",
+        price: 340,
+        procedure: "ultrasound",
+        location: "Noe Valley, San Francisco",
+        lat: 37.7503,
+        lng: -122.4311,
+        distance: "2.1 mi",
+        rating: 4.8,
+        reviews: 221,
+        insurance: "cigna",
+        waitTime: "Next day",
+        image: "https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?w=400&h=300&fit=crop"
+    },
+    {
+        id: 18,
+        name: "Sunset Ultrasound Clinic",
+        price: 420,
+        procedure: "ultrasound",
+        location: "Sunset District, San Francisco",
+        lat: 37.7574,
+        lng: -122.4939,
+        distance: "5.0 mi",
+        rating: 4.5,
+        reviews: 167,
+        insurance: "unitedhealth",
+        waitTime: "2-3 days",
+        image: "https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=400&h=300&fit=crop"
+    },
+
+    // Blood Work providers
+    {
+        id: 19,
+        name: "QuickLab Blood Testing",
+        price: 125,
+        procedure: "bloodwork",
+        location: "Financial District, San Francisco",
+        lat: 37.7926,
+        lng: -122.4024,
+        distance: "2.3 mi",
+        rating: 4.6,
+        reviews: 892,
+        insurance: "aetna",
+        waitTime: "Walk-in",
+        image: "https://images.unsplash.com/photo-1516549655169-df83a0774514?w=400&h=300&fit=crop"
+    },
+    {
+        id: 20,
+        name: "Mission District Lab",
+        price: 95,
+        procedure: "bloodwork",
+        location: "Mission District, San Francisco",
+        lat: 37.7579,
+        lng: -122.4128,
+        distance: "1.1 mi",
+        rating: 4.7,
+        reviews: 634,
+        insurance: "blue-cross",
+        waitTime: "Same day",
+        image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=400&h=300&fit=crop"
+    },
+    {
+        id: 21,
+        name: "Downtown Blood Lab",
+        price: 150,
+        procedure: "bloodwork",
+        location: "Downtown, San Francisco",
+        lat: 37.7859,
+        lng: -122.4055,
+        distance: "1.8 mi",
+        rating: 4.8,
+        reviews: 1023,
+        insurance: "cigna",
+        waitTime: "Walk-in",
+        image: "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=400&h=300&fit=crop"
+    },
+    {
+        id: 22,
+        name: "Richmond Laboratory",
+        price: 110,
+        procedure: "bloodwork",
+        location: "Richmond District, San Francisco",
+        lat: 37.7819,
+        lng: -122.4854,
+        distance: "4.5 mi",
+        rating: 4.5,
+        reviews: 445,
+        insurance: "unitedhealth",
+        waitTime: "Next day",
+        image: "https://images.unsplash.com/photo-1512678080530-7760d81faba6?w=400&h=300&fit=crop"
+    },
+    {
+        id: 23,
+        name: "Castro Health Lab",
+        price: 135,
+        procedure: "bloodwork",
+        location: "Castro, San Francisco",
+        lat: 37.7629,
+        lng: -122.4370,
+        distance: "3.4 mi",
+        rating: 4.6,
+        reviews: 567,
+        insurance: "blue-cross",
+        waitTime: "Same day",
+        image: "https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?w=400&h=300&fit=crop"
     }
 ];
 
@@ -169,17 +383,17 @@ function initMap() {
 // Create custom marker HTML
 function createMarkerIcon(price) {
     let className = 'price-marker';
-    if (price < 300) {
+    if (price < 500) {
         className += ' affordable';
-    } else if (price < 450) {
+    } else if (price < 1500) {
         className += ' moderate';
     }
 
     const icon = L.divIcon({
         className: 'custom-marker',
-        html: `<div class="${className}">$${price}</div>`,
-        iconSize: [60, 30],
-        iconAnchor: [30, 30]
+        html: `<div class="${className}">$${price.toLocaleString()}</div>`,
+        iconSize: [80, 30],
+        iconAnchor: [40, 30]
     });
 
     return icon;
@@ -234,12 +448,30 @@ function scrollToProviderCard(providerId) {
     }
 }
 
+// Get display name for insurance
+function getInsuranceDisplayName(insuranceCode) {
+    const insuranceNames = {
+        'blue-cross': 'Blue Cross',
+        'aetna': 'Aetna',
+        'unitedhealth': 'UnitedHealthcare',
+        'cigna': 'Cigna'
+    };
+    return insuranceNames[insuranceCode] || insuranceCode;
+}
+
 // Render provider cards
 function renderProviderCards(providerList) {
     const grid = document.getElementById('providerGrid');
     grid.innerHTML = '';
 
-    providerList.forEach(provider => {
+    // Sort to always put sponsored providers first
+    const sortedList = [...providerList].sort((a, b) => {
+        if (a.sponsored && !b.sponsored) return -1;
+        if (!a.sponsored && b.sponsored) return 1;
+        return 0;
+    });
+
+    sortedList.forEach(provider => {
         const card = document.createElement('div');
         card.className = provider.sponsored ? 'provider-card sponsored-card' : 'provider-card';
         card.setAttribute('data-id', provider.id);
@@ -267,7 +499,7 @@ function renderProviderCards(providerList) {
                 <div class="provider-details">
                     <div class="detail-row">
                         <span class="detail-label">Insurance:</span>
-                        <span class="provider-insurance">${provider.insurance}</span>
+                        <span class="provider-insurance">${getInsuranceDisplayName(provider.insurance)}</span>
                     </div>
                     <div class="detail-row">
                         <span class="detail-label">Wait Time:</span>
@@ -318,22 +550,49 @@ function toggleSave(providerId) {
 
 // Apply filters
 function applyFilters() {
+    const procedureFilter = document.getElementById('procedureFilter').value;
     const priceFilter = document.getElementById('priceFilter').value;
+    const insuranceFilter = document.getElementById('insuranceFilter').value;
 
     filteredProviders = providers.filter(provider => {
-        if (priceFilter === 'all') return true;
-
-        const [min, max] = priceFilter.split('-').map(v => {
-            if (v.includes('+')) return [parseInt(v), Infinity];
-            return parseInt(v);
-        });
-
-        if (max) {
-            return provider.price >= min && provider.price <= max[1];
-        } else {
-            return provider.price >= min[0];
+        // Filter by procedure
+        if (procedureFilter && procedureFilter !== 'all' && provider.procedure !== procedureFilter) {
+            return false;
         }
+
+        // Filter by price range
+        if (priceFilter !== 'all') {
+            if (priceFilter.includes('+')) {
+                const min = parseInt(priceFilter.replace('+', ''));
+                if (provider.price < min) return false;
+            } else {
+                const [min, max] = priceFilter.split('-').map(v => parseInt(v));
+                if (provider.price < min || provider.price > max) return false;
+            }
+        }
+
+        // Filter by insurance
+        if (insuranceFilter !== 'all' && provider.insurance !== insuranceFilter) {
+            return false;
+        }
+
+        return true;
     });
+
+    // Update results subtitle with procedure name
+    const procedureNames = {
+        'all': 'All procedures',
+        'xray': 'X-Ray',
+        'mri': 'MRI Scan',
+        'ct': 'CT Scan',
+        'ultrasound': 'Ultrasound',
+        'bloodwork': 'Blood Work'
+    };
+    const procedureName = procedureNames[procedureFilter] || 'All procedures';
+    const subtitle = procedureFilter === 'all'
+        ? 'All procedure providers in San Francisco, CA'
+        : `${procedureName} providers in San Francisco, CA`;
+    document.querySelector('.results-subtitle').textContent = subtitle;
 
     renderProviderCards(filteredProviders);
     updateMapMarkers(filteredProviders);
@@ -341,24 +600,27 @@ function applyFilters() {
 
 // Sort providers
 function sortProviders(sortBy) {
-    switch (sortBy) {
-        case 'price-low':
-            filteredProviders.sort((a, b) => a.price - b.price);
-            break;
-        case 'price-high':
-            filteredProviders.sort((a, b) => b.price - a.price);
-            break;
-        case 'rating':
-            filteredProviders.sort((a, b) => b.rating - a.rating);
-            break;
-        case 'distance':
-            filteredProviders.sort((a, b) => {
+    filteredProviders.sort((a, b) => {
+        // Always put sponsored providers first
+        if (a.sponsored && !b.sponsored) return -1;
+        if (!a.sponsored && b.sponsored) return 1;
+
+        // Then sort by the selected criteria
+        switch (sortBy) {
+            case 'price-low':
+                return a.price - b.price;
+            case 'price-high':
+                return b.price - a.price;
+            case 'rating':
+                return b.rating - a.rating;
+            case 'distance':
                 const distA = parseFloat(a.distance);
                 const distB = parseFloat(b.distance);
                 return distA - distB;
-            });
-            break;
-    }
+            default:
+                return 0;
+        }
+    });
 
     renderProviderCards(filteredProviders);
 }
@@ -376,8 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize map
     initMap();
 
-    // Render initial provider cards
-    renderProviderCards(filteredProviders);
+    // Apply initial filters (to match default dropdown selections)
+    applyFilters();
 
     // Add filter listeners
     document.getElementById('procedureFilter').addEventListener('change', applyFilters);

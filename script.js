@@ -484,5 +484,5 @@ document.querySelectorAll('.footer-column a').forEach(link => {
     });
 });
 
-console.log('🏥 Stealthy - Healthcare Transparency Platform');
+console.log('🏥 Stitches - Healthcare Transparency Platform');
 console.log('💪 Making healthcare costs transparent, one procedure at a time!');
