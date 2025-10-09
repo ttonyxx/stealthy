@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Watch - Find Affordable Care | Stealthy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Serif+4:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo" onclick="window.location.href='index.html'">
+                    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="40" height="40" rx="8" fill="url(#gradient)"/>
+                        <path d="M20 10V30M10 20H30" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40">
+                                <stop offset="0%" style="stop-color:#2D6A4F"/>
+                                <stop offset="100%" style="stop-color:#74C69D"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span class="logo-text">stealthy</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="provider-watch.html" class="active">Provider Watch</a>
+                    <a href="dashboard.html">Negotiate</a>
+                    <a href="about.html">About</a>
+                    <button class="btn-primary" onclick="openWaitlist()">Join Waitlist</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Provider Watch Container -->
+    <div class="provider-watch-container">
+        <!-- Filters Bar -->
+        <div class="filters-bar">
+            <div class="filters-content">
+                <div class="filter-group">
+                    <select id="procedureFilter" class="filter-select">
+                        <option value="xray">X-Ray</option>
+                        <option value="mri">MRI Scan</option>
+                        <option value="ct">CT Scan</option>
+                        <option value="ultrasound">Ultrasound</option>
+                        <option value="bloodwork">Blood Work</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <input type="text" id="locationInput" placeholder="San Francisco, CA" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <select id="priceFilter" class="filter-select">
+                        <option value="all">All Prices</option>
+                        <option value="0-500">$0 - $500</option>
+                        <option value="500-1000">$500 - $1,000</option>
+                        <option value="1000-2000">$1,000 - $2,000</option>
+                        <option value="2000+">$2,000+</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <select id="insuranceFilter" class="filter-select">
+                        <option value="all">All Insurance</option>
+                        <option value="blue-cross">Blue Cross</option>
+                        <option value="aetna">Aetna</option>
+                        <option value="unitedhealth">UnitedHealthcare</option>
+                        <option value="cigna">Cigna</option>
+                    </select>
+                </div>
+                <button class="btn-search" onclick="applyFilters()">
+                    <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM18 18l-4.35-4.35" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    Search
+                </button>
+            </div>
+        </div>
+
+        <!-- Split View Container -->
+        <div class="split-view">
+            <!-- Map Section -->
+            <div class="map-section">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button class="map-control-btn" onclick="resetMapBounds()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+                        </svg>
+                        Reset View
+                    </button>
+                </div>
+            </div>
+
+            <!-- Listings Section -->
+            <div class="listings-section">
+                <div class="listings-header">
+                    <div class="results-info">
+                        <h2 class="results-count">23 results</h2>
+                        <p class="results-subtitle">X-Ray providers in San Francisco, CA</p>
+                    </div>
+                    <div class="sort-controls">
+                        <label for="sortBy">Sort by:</label>
+                        <select id="sortBy" onchange="sortProviders(this.value)">
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Rating</option>
+                            <option value="distance">Distance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="provider-grid" id="providerGrid">
+                    <!-- Provider cards will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Waitlist Modal (reused from main site) -->
+    <div class="modal" id="waitlistModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeWaitlist()">&times;</button>
+            <h2 class="modal-title">Join the Healthcare Transparency Revolution</h2>
+            <p class="modal-subtitle">Be the first to know when we launch</p>
+            <form class="waitlist-form" action="https://formsubmit.co/tony@kikoff.com" method="POST" onsubmit="handleWaitlistSubmit(event)">
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <input type="hidden" name="_cc" value="tyler@kikoff.com,gregroie@kikoff.com">
+                <input type="hidden" name="_subject" value="New Stealthy Waitlist Signup!">
+                <input type="hidden" name="_template" value="box">
+                <input type="hidden" name="_captcha" value="false">
+                <button type="submit" class="btn-primary-large">Join Waitlist</button>
+            </form>
+            <p class="modal-note">We'll never spam you. Unsubscribe anytime.</p>
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">✓</div>
+                <h3>You're on the list!</h3>
+                <p>We'll notify you when we launch.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="provider-watch.js"></script>
+</body>
+</html>
